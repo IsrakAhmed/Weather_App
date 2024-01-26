@@ -7,14 +7,10 @@
     android:background="@color/black_shade_1"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/idRLHome"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        >
 
-        <ImageView
+    <!--    This ImageView is used to show the background image    -->
+
+    <ImageView
             android:id="@+id/idIVBack"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,28 +18,24 @@
             android:src="@drawable/home"
             />
 
-        <TextView
-            android:id="@+id/idTVCityName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:padding="20dp"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:layout_below="@id/idLLEdt"
-            android:textSize="18sp"
-            />
 
-        <LinearLayout
+
+    <!--    This This LinearLayout holds the text input field for the city name
+            and the go button for sending the API request.    -->
+
+    <LinearLayout
             android:id="@+id/idLLEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:orientation="horizontal"
-
             android:weightSum="5">
+
+
+
+            <!--    This Text field layout is used for showing the hint of what we
+                    should type in the input text field also it holds the input text
+                    field.   -->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/idTILCity"
@@ -56,6 +48,9 @@
                 android:padding="5dp"
                 android:textColorHint="@color/white"
                 app:hintTextColor="@color/white">
+
+
+                <!--    This Text input field is used for typing the city name   -->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/idEdtCity"
@@ -70,6 +65,11 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+
+            <!--    This Button is used for searching the weather information of the
+                    typed city by sending the API request.    -->
+
             <Button
                 android:id="@+id/idBtnGO"
                 android:layout_width="wrap_content"
@@ -82,7 +82,31 @@
 
         </LinearLayout>
 
-        <TextView
+
+
+    <!--    This TextView is used for showing the City name and Country name
+            fetched from the API.    -->
+
+    <TextView
+        android:id="@+id/idTVCityName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_below="@id/idLLEdt"
+        android:textSize="18sp"
+        />
+
+
+
+    <!--    This TextView is used for showing the current temperature of the
+            searched city fetched from the API.    -->
+
+    <TextView
             android:id="@+id/idTVTemperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,35 +118,56 @@
             android:textColor="@color/white"
             android:textSize="70dp" />
 
-        <TextView
+
+
+    <!--    This TextView is used for showing the current weather condition
+            of the searched city fetched from the API.    -->
+
+    <TextView
             android:id="@+id/idTVCondition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_below="@+id/idTVTemperature"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:textAlignment="center"
             android:text=""
-            android:textColor="@color/white"
-            android:layout_below="@+id/idTVTemperature"/>
+            android:textAlignment="center"
+            android:textColor="@color/white" />
 
-        <ScrollView
+
+
+    <!--    This ScrollView is used for scrolling up/down the data of the
+            TextView inside this ScrollView.    -->
+
+    <ScrollView
             android:id="@+id/idSVForecast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_below="@id/idTVCondition">
 
+
+        <!--    This TextView is used for showing Today's forecast and 7 days forecast of the searched city fetched from the API    -->
+
             <TextView
                     android:id="@+id/idTVForecast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:gravity="center"
                     android:text=""
                     android:textColor="@color/white" />
 
         </ScrollView>
 
-        <TextView
+
+
+    <!--    This TextView is used for showing the developer's name.    -->
+
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -132,14 +177,5 @@
             android:gravity="center"
             android:textColor="@color/white" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/idRVWeather"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>

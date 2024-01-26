@@ -33,6 +33,7 @@ android {
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
+
     implementation("com.squareup.picasso:picasso:2.71828"){
         exclude(group = "com.android.support", module = "exifinterface")
     }
