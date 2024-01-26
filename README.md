@@ -21,6 +21,6 @@ Weather API : https://www.weatherapi.com/
 
 
 
-## Manifest Permission
+## Manifest Permission        :
 
->	<uses-permission android:name="android.permission.INTERNET" />
+>>	<uses-permission android:name="android.permission.INTERNET" />
