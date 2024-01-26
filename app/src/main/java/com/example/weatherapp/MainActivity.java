@@ -27,19 +27,46 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText cityEdt;
     private ImageView backIV;
 
+
+    /*
+        This onCreate method is called instantly when the app runs.
+    */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        /*      cityNameTV is used for showing the City name and country name from the API response.        */
         cityNameTV = findViewById(R.id.idTVCityName);
+
+
+        /*      temperatureTV is used for showing the current temperature from the API response.        */
         temperatureTV = findViewById(R.id.idTVTemperature);
+
+
+        /*      conditionTV is used for showing the current weather condition from the API response.        */
         conditionTV = findViewById(R.id.idTVCondition);
+
+
+        /*      cityEdt is used for taking the City name as input from the text input field.        */
         cityEdt = findViewById(R.id.idEdtCity);
+
+
+        /*      backIV is used to change the background image depending on the temperature.     */
         backIV = findViewById(R.id.idIVBack);
+
+
+        /*      forecastTV is used for showing today's weather forecast and 7 days weather forecast from the API response.      */
         forecastTV = findViewById(R.id.idTVForecast);
 
     }
+
+
+    /*
+        This goListener method is called when the GO button is clicked. This method is called from the button inside the xml file.
+    */
 
     public void goListener(View view) {
             String city = Objects.requireNonNull(cityEdt.getText()).toString();
@@ -53,38 +80,83 @@ public class MainActivity extends AppCompatActivity {
 
     public void getWeatherDetails(String cityName) {
 
+        /*
+                Here url is where we will send API requests.
+                This API is taken from :   https://www.weatherapi.com/
+                API KEY :   efbca3d529074102ae2123346242301         (Valid till 06/Feb/2024)
+        */
+
         String url = "https://api.weatherapi.com/v1/forecast.json?key=efbca3d529074102ae2123346242301&q=" + cityName + "&days=7&aqi=yes&alerts=yes";
 
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
         try {
 
+            /*
+                Sending the API request to the url. This is a GET request.
+            */
+
             @SuppressLint("ResourceAsColor") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
                 String temperature = null;
                 String city = null;
                 String condition = null;
                 try {
+
+                    /*
+                            temperature variable is taking the current temperature in centigrade
+                            from the "current" json object from the response.
+                    */
+
                     temperature = response.getJSONObject("current").getString("temp_c");
+
+
+                    /*
+                            city variable is taking the city name and country name
+                            from the "location" json object from the response.
+                    */
+
                     city = response.getJSONObject("location").getString("name") + ", " + response.getJSONObject("location").getString("country");
+
+
+
+                    /*
+                            condition variable is taking the current weather condition
+                            from the "condition" json object from the "current" json object
+                            from the response.
+                    */
+
                     condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
 
+
+
+                    /*
+                            Changing the background image dynamically based on the temperature.
+                    */
+
                     double tempInDouble = Double.parseDouble(temperature);
+
                     if (tempInDouble < 10) {
-                        // Cold temperature, set background color to blue
+                        // Cold temperature, set background color to blue.
                         backIV.setImageResource(R.color.coldColor);
-                    } else if (tempInDouble >= 10 && tempInDouble < 25) {
-                        // Moderate temperature, set background color to green
+                    }
+
+                    else if (tempInDouble >= 10 && tempInDouble < 25) {
+                        // Moderate temperature, set background color to green.
                         backIV.setImageResource(R.color.moderateColor);
-                    } else {
-                        // Hot temperature, set background color to red
+                    }
+
+                    else {
+                        // Hot temperature, set background color to red.
                         backIV.setImageResource(R.color.hotColor);
                     }
 
-                    cityNameTV.setText(city);
-                    temperatureTV.setText(temperature + "°C");
-                    conditionTV.setText(condition);
+                    cityNameTV.setText(city);                       // Showing the city and country name.
+                    temperatureTV.setText(temperature + "°C");      // Showing the current temperature in centigrade.
+                    conditionTV.setText(condition);                 // Showing the current weather condition.
 
-                    // ToDay's Forecast
+
+                    /*****      ToDay's Forecast        *****/
+
                     JSONObject forecastObj = response.getJSONObject("forecast");
                     JSONObject forecastO = forecastObj.getJSONArray("forecastday").getJSONObject(0);
                     JSONArray hourArray = forecastO.getJSONArray("hour");
@@ -111,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                    // For Next 7 Day's Forecast
+                    /*****      Next 7 Day's Forecast        *****/
+
                     JSONObject dayForecastObj = response.getJSONObject("forecast");
                     JSONArray dayForecastdayArray = dayForecastObj.getJSONArray("forecastday");
 
