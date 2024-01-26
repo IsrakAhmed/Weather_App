@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                             String time = android.text.format.DateFormat.format("HH:mm", forecastHour * 1000L).toString();
                             String temper = hourObj.getString("temp_c");
 
-                            forecastText.append("Time: ").append(time).append(", Temperature: ").append(temper).append("\n\n");
+                            forecastText.append("Time: ").append(time).append(", Temperature: ").append(temper).append(" °C\n\n");
                         }
                     }
 
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                         String date = forecastDayObj.getString("date");
                         String avgTemp = forecastDayObj.getJSONObject("day").getString("avgtemp_c");
 
-                        forecastText.append("Date: ").append(date).append(", Avg Temp: ").append(avgTemp).append("\n\n");
+                        forecastText.append("Date: ").append(date).append(", Avg Temp: ").append(avgTemp).append(" °C\n\n");
                     }
 
 
