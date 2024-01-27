@@ -15,6 +15,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +27,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private TextView cityNameTV, temperatureTV, conditionTV, forecastTV;
     private TextInputEditText cityEdt;
-    private ImageView backIV;
+    private ImageView backIV, conditionIV;
 
 
     /*
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         temperatureTV = findViewById(R.id.idTVTemperature);
 
 
-        /*      conditionTV is used for showing the current weather condition from the API response.        */
+        /*      conditionTV is used for showing the current weather condition in text from the API response.        */
         conditionTV = findViewById(R.id.idTVCondition);
 
 
@@ -60,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         /*      forecastTV is used for showing today's weather forecast and 7 days weather forecast from the API response.      */
         forecastTV = findViewById(R.id.idTVForecast);
+
+
+        /*      conditionIV is used for showing the current weather condition icon from the API response.        */
+        conditionIV = findViewById(R.id.idIVCondition);
 
     }
 
@@ -97,9 +103,12 @@ public class MainActivity extends AppCompatActivity {
             */
 
             @SuppressLint("ResourceAsColor") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+
                 String temperature = null;
                 String city = null;
                 String condition = null;
+                String conditionImageURL = null;
+
                 try {
 
                     /*
@@ -120,12 +129,22 @@ public class MainActivity extends AppCompatActivity {
 
 
                     /*
-                            condition variable is taking the current weather condition
+                            condition variable is taking the current weather condition in text
                             from the "condition" json object from the "current" json object
                             from the response.
                     */
 
                     condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
+
+
+
+                    /*
+                            conditionImageURL variable is taking the current weather condition icon's url
+                            from the "condition" json object from the "current" json object
+                            from the response.
+                    */
+
+                    conditionImageURL = "https:" + response.getJSONObject("current").getJSONObject("condition").getString("icon");
 
 
 
@@ -150,9 +169,12 @@ public class MainActivity extends AppCompatActivity {
                         backIV.setImageResource(R.color.hotColor);
                     }
 
-                    cityNameTV.setText(city);                       // Showing the city and country name.
-                    temperatureTV.setText(temperature + "°C");      // Showing the current temperature in centigrade.
-                    conditionTV.setText(condition);                 // Showing the current weather condition.
+
+                    cityNameTV.setText(city);                                   //  Showing the city and country name.
+                    temperatureTV.setText(temperature + "°C");                  //  Showing the current temperature in centigrade.
+                    conditionTV.setText(condition);                             //  Showing the current weather condition in text.
+                    Picasso.get().load(conditionImageURL).into(conditionIV);    //  Showing the current weather condition icon.
+
 
 
                     /*****      ToDay's Forecast        *****/

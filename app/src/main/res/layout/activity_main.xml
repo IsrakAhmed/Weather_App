@@ -20,7 +20,7 @@
 
 
 
-    <!--    This This LinearLayout holds the text input field for the city name
+    <!--    This LinearLayout holds the text input field for the city name
             and the go button for sending the API request.    -->
 
     <LinearLayout
@@ -125,14 +125,28 @@
 
 
 
+    <!--    This ImageView is used for showing the current weather condition
+            icon of the searched city fetched from the API.    -->
+
+    <ImageView
+        android:id="@+id/idIVCondition"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_below="@id/idTVTemperature"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="9dp" />
+
+
+
     <!--    This TextView is used for showing the current weather condition
-            of the searched city fetched from the API.    -->
+            of the searched city in text fetched from the API.    -->
 
     <TextView
             android:id="@+id/idTVCondition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/idTVTemperature"
+            android:layout_below="@id/idIVCondition"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
